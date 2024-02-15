@@ -8,7 +8,7 @@ Subtasks:
 1:   main file to take in user input: state, county
      read accident reports into an arraylist (sorted based on date of start time (ascending))
 
-2:   add all accidents that happened on the smae day to a queue
+2:   add all accidents that happened on the same day to a queue
       if a new day is found, create a new queue for that day
      find amount of time it takes to process a queue
       count total severity, *60 = process time
