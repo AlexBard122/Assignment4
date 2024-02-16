@@ -116,7 +116,7 @@ public class program4 {
 		 * 	aspects of it if needed
 		 * 
 		 * Program needs arguments in order to run. make sure to set run configurations arguments to ${string_prompt}
-		 * 	and use the input 
+		 * 	and use the input: accidents_small_sample.csv county state
 		 */
 		
 		// user-generated arguments
