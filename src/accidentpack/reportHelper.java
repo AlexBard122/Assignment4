@@ -122,31 +122,36 @@ public class reportHelper {
         ArrayList<report> filteredList = getReportByCountyAndState(reports, county, state);
         //create an ArrayList to hold each day's counters
         ArrayDeque<Integer> numCounters = new ArrayDeque<>();
-        String startDate = filteredList.get(0).getStartTime().substring(0, 10);
-        String endDate = filteredList.get(filteredList.size()-1).getStartTime().substring(0, 10);
-        String currentDate = startDate;
-        Iterator<report> itr = filteredList.iterator();
-        ArrayDeque<report> dayCounter = new ArrayDeque<>();
+        String currentDate = filteredList.get(0).getStartTime().substring(0, 10);
+        ArrayDeque<report> dayCounter = new ArrayDeque<>();        
         
-        while (!filteredList.isEmpty()) {
-            while (itr.hasNext()) {
-                report nextReport = itr.next();
-                if (nextReport.getStartTime().substring(0, 10).equals(currentDate));
-                dayCounter.addLast(nextReport);
-                itr.remove();
+        for (report r: filteredList) {
+            String reportDate = r.getStartTime().substring(0, 10);
+            
+            if (reportDate.equals(currentDate)) {
+                dayCounter.addLast(r);
+            } else {
+                int minutes = 0;
+                for (report x: dayCounter) {
+                    minutes += (x.getSeverity()*60);
+                }
+                int counters = (int) Math.ceil(minutes / 1440.0);
+                numCounters.addLast(counters);
+                // reset dayCounter
+                dayCounter.clear();
+                // add the current report to the new dayCounter
+                dayCounter.addLast(r);
+                currentDate = reportDate;                
             }
-            if (currentDate != endDate) {
-                currentDate = filteredList.get(0).getStartTime().substring(0, 10);
-            }
-            int minutes = 0;
-            while (!dayCounter.isEmpty()) {
-                report nextReport = dayCounter.pollFirst();
-                minutes += (nextReport.getSeverity()*60);            
-            }
-            //learned from: https://www.programiz.com/java-programming/library/math/ceil
-            int counters = (int) Math.ceil(minutes / 1440);
-            numCounters.addLast(counters);
         }
+        // Calculate and add counters for the last day
+        int minutes = 0;
+        for (report x: dayCounter) {
+            minutes += (x.getSeverity()*60);
+        }
+        int counters = (int) Math.ceil(minutes / 1440.0);
+        numCounters.addLast(counters);
+        
         return numCounters;
     }
 }
