@@ -1,10 +1,8 @@
 
 package accidentpack;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * @author abard
@@ -12,82 +10,6 @@ import java.util.Collections;
  */
 public class program4 {
 
-	
-	
-	
-	/**
-	 * @author abard
-	 * reads a CSV file and populates an ArrayList of report objects
-	 * @param filePath
-	 * @return Array List of report objects
-	 * @throws IOException
-	 */
-	public static ArrayList<report> ReadCSVFile(String filePath) throws IOException
-    {
-        ArrayList<report> report = new ArrayList<report>();
-        
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line = null;
-        
-        reader.readLine();
-        while ((line = reader.readLine()) != null) {
-         
-        readfile(report, line);
-        }
-        reader.close();
-        return report;
-    }
-	/**
-	 * @author abard
-	 * sorts the contents of a csv file into and ArrayList<report>
-	 * @param report
-	 * @param line
-	 */
-	private static void readfile(ArrayList<report> report, String line) {
-		String[] items = line.split(",");
-		String ID = items[0];
-		int Severity = Integer.parseInt(items[1]);
-		String StartTime = (items[2]);
-		String EndTime = (items[3]);
-		String Street = items[4];
-		String City = items[5];
-		String County = items[6];
-		String State = items[7];
-		String Temp = (items[8]);
-		String Humidity = (items[9]);
-		double Visibility = Double.parseDouble(items[10]);
-		String Weather = items[11];
-		boolean Crossing = Boolean.parseBoolean(items[12]);
-		String Daynight = items[13];
-		report r = new report(ID, Severity, StartTime, EndTime, Street, City, County, State, Temp,
-				Humidity, Visibility, Weather, Crossing, Daynight);
-		
-		sortfile(report, r);
-		//report.add(r);
-	}
-	
-	/**
-	 * @author abard
-	 * method for helping sort the ArrayList by start time in ascending order
-	 * @param ArrayList<report>
-	 * @param report
-	 */
-	private static void sortfile(ArrayList<report> reports, report r) {
-		if(reports.size() == 0) {
-			reports.add(r);
-			return;
-		}
-		int index = 0;
-		for(report reportlist: reports) {
-			//if a start time in the list is greater than the provided start time, then add r before it
-			if(reportlist.getStartTime().compareTo(r.getStartTime()) > 0) {
-				reports.add(index, r);
-				return;
-			}
-			index++;
-		}
-		reports.add(r);
-	}
 	/**
 	 * @author abard
 	 * calculates elapsed time and converts it to seconds
@@ -125,15 +47,26 @@ public class program4 {
         String state = args[2];
         
         // reading the csv file
-        ArrayList<report> report = ReadCSVFile(filePath);
+        ArrayList<report> report = reportHelper.ReadCSVFile(filePath);
         
         //loop used to print start times to show ArrayList is sorted properly. feel free to remove
         for(report reportlist: report) {
-        	System.out.println(reportlist.getStartTime());
+        	System.out.println(reportlist.getStartTime() + "\t" + reportlist.getCounty());
         }
         
+        ArrayList<report> filtered = reportHelper.getReportByCountyAndState(report, county, state);
+        for(report reports: filtered) {
+            System.out.println(reports.getCounty() + " " + reports.getState());
+        }
         
+        //NOT WORKING
         //calculateCounters(report, county, state);
+        ArrayDeque<Integer> countersNeeded = new ArrayDeque<>();
+        countersNeeded = reportHelper.calculateCounters(report, county, state);
+        
+        for(Integer counters: countersNeeded) {
+            System.out.println(counters);
+        }
 	}
 
 }
