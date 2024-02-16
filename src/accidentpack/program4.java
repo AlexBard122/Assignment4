@@ -1,13 +1,8 @@
-/**
- * 
- */
+
 package accidentpack;
-<<<<<<< Updated upstream
-=======
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
->>>>>>> Stashed changes
 
 /**
  * @author abard
@@ -16,8 +11,6 @@ import java.util.ArrayList;
 public class program4 {
 
 	/**
-<<<<<<< Updated upstream
-=======
 	 * @author abard
 	 * calculates elapsed time and converts it to seconds
 	 * @param time1
@@ -32,14 +25,10 @@ public class program4 {
 	}
 	/**
 	 * @author abard
->>>>>>> Stashed changes
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws IOException{
 
-<<<<<<< Updated upstream
-=======
 		/**
 		 * I have provided the methods main, convertTime (to count time between tasks)
 		 * 	ReadCSVFile (to read the file), readfile (converts contents of file into reports and
@@ -70,6 +59,7 @@ public class program4 {
             System.out.println(reports.getCounty() + " " + reports.getState());
         }
         
+        //NOT WORKING
         //calculateCounters(report, county, state);
         ArrayDeque<Integer> countersNeeded = new ArrayDeque<>();
         countersNeeded = reportHelper.calculateCounters(report, county, state);
@@ -77,7 +67,6 @@ public class program4 {
         for(Integer counters: countersNeeded) {
             System.out.println(counters);
         }
->>>>>>> Stashed changes
 	}
 
 }
