@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class reportHelper {
     
@@ -131,12 +130,7 @@ public class reportHelper {
             if (reportDate.equals(currentDate)) {
                 dayCounter.addLast(r);
             } else {
-                int minutes = 0;
-                for (report x: dayCounter) {
-                    minutes += (x.getSeverity()*60);
-                }
-                int counters = (int) Math.ceil(minutes / 1440.0);
-                numCounters.addLast(counters);
+                processQueue(numCounters, dayCounter);
                 // reset dayCounter
                 dayCounter.clear();
                 // add the current report to the new dayCounter
@@ -145,13 +139,23 @@ public class reportHelper {
             }
         }
         // Calculate and add counters for the last day
+        processQueue(numCounters, dayCounter);
+        
+        return numCounters;
+    }
+    
+    /**
+     * @author Devin
+     * helper method to process the queue and calculate number of counters needed
+     * @param numCounters The queue of counters to add to
+     * @param dayCounter The queue of accidents to process
+     */
+    private static void processQueue(ArrayDeque<Integer> numCounters, ArrayDeque<report> dayCounter) {
         int minutes = 0;
         for (report x: dayCounter) {
             minutes += (x.getSeverity()*60);
         }
         int counters = (int) Math.ceil(minutes / 1440.0);
         numCounters.addLast(counters);
-        
-        return numCounters;
     }
 }
