@@ -28,3 +28,11 @@ Alex Bard: subtask 1 & 3 + initial GitHub setup + README file creation (may coll
 Devin Chamberlain: subtask 2 + maybe helping with README file instructions (some parts of task 2 can be collaborated on if needed)
 
   Note: parts of final code which may be reassigned or collaborated on will be noted
+
+  //Devin
+  Order of complexity for task 2 items: 
+  
+  'getReportByCountyAndState' filter method = O(n) as it goes through all given items (n) once.
+  
+  'calculateCounters' method is O(n m^2) as it first calls 'getReportByCountyAndState' which is O(n) and then goes through the resultant list twice 
+  (once to put in queue and a second time to process queue) which is O(m^2) resulting in a final order of complexity of O(n m^2).
