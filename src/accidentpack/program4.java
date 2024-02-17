@@ -3,6 +3,7 @@ package accidentpack;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author abard
@@ -46,27 +47,38 @@ public class program4 {
         String county = args[1];
         String state = args[2];
         
+        //System.out.println("started");
+        
         // reading the csv file
         ArrayList<report> report = reportHelper.ReadCSVFile(filePath);
         
+        
+        //System.out.println("read file");
+        
         //loop used to print start times to show ArrayList is sorted properly. feel free to remove
-        for(report reportlist: report) {
-        	System.out.println(reportlist.getStartTime() + "\t" + reportlist.getCounty());
-        }
+//        for(report reportlist: report) {
+//        	System.out.println(reportlist.getStartTime() + "\t" + reportlist.getCounty());
+//        }
         
-        ArrayList<report> filtered = reportHelper.getReportByCountyAndState(report, county, state);
-        for(report reports: filtered) {
-            System.out.println(reports.getCounty() + " " + reports.getState());
-        }
+        //ArrayList<report> filtered = reportHelper.getReportByCountyAndState(report, county, state);
+//        for(report reports: filtered) {
+//            System.out.println(reports.getCounty() + " " + reports.getState());
+//        }
+        //System.out.println("created filtered list");
         
-        //NOT WORKING
-        //calculateCounters(report, county, state);
+        long time1 = System.nanoTime();
         ArrayDeque<Integer> countersNeeded = new ArrayDeque<>();
         countersNeeded = reportHelper.calculateCounters(report, county, state);
+        long time2 = System.nanoTime();
+        String processTime = convertTime(time1, time2);
         
-        for(Integer counters: countersNeeded) {
-            System.out.println(counters);
-        }
+        //System.out.println("main task done");
+        int maxNum = reportHelper.findMax(countersNeeded);
+        System.out.println("County: " + county + " State: " + state);
+        System.out.println(processTime + " seconds to simulate the process");
+        System.out.println("minimun number of counters needed: " + maxNum);
+        
 	}
+
 
 }
