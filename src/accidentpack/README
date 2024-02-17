@@ -1,4 +1,14 @@
 README file
 
+Execution instructions:
+
+From file location of .java files
+type cmd into file explorer
+in cmd.exe:
+	javac report.java
+	javac Reporthelper.java
+	javac program4.java
+	java program4 <filepath of accidents.csv> <"county"> <state>
+
 will update later with info on task division, roles, methods written by members, and execution instructions
 (likely will be similar to what is on GitHub)
