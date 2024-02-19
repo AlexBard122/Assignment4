@@ -1,13 +1,14 @@
-
+/**
+ * Class containing main method and time calculation helper method
+ * @author abard
+ *
+ */
 package accidentpack;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-/**
- * @author abard
- *
- */
+
 public class program4 {
 
 	/**
@@ -17,7 +18,7 @@ public class program4 {
 	 * @param time2
 	 * @return String
 	 */
-	public static String convertTime(long time1, long time2) {
+	private static String convertTime(long time1, long time2) {
 		long elapsedTime = time2 - time1;
 		double elapsedTimeSeconds;
 		elapsedTimeSeconds = elapsedTime / 1000000000;
