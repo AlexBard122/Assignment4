@@ -1,5 +1,7 @@
 IMPORTANT: accidentpack, main class and accidentpack README file are in the src folder. click the folder to access them
            I don't know what those other files are or what they do, they just appeared when I pushed the files I made
+NOTE: README file for running the program4 program is in the accidentpack file, this README file discusses role assignment
+           and GitHub repository details.
 
 # Assignment4
 
