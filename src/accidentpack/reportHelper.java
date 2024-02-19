@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class reportHelper {
     
@@ -33,6 +35,7 @@ public class reportHelper {
         readfile(report, line);
         }
         reader.close();
+        Collections.sort(report, (r1, r2) ->  r1.getStartTime().compareTo(r2.getStartTime()));
         return report;
     }
     /**
@@ -59,33 +62,23 @@ public class reportHelper {
         String Daynight = items[13];
         report r = new report(ID, Severity, StartTime, EndTime, Street, City, County, State, Temp,
                 Humidity, Visibility, Weather, Crossing, Daynight);
-        
-        sortfile(report, r);
-        //report.add(r);
+        report.add(r);
     }
-    
-    /**
-     * @author abard
-     * method for helping sort the ArrayList by start time in ascending order
-     * @param ArrayList<report>
-     * @param report
-     */
-    private static void sortfile(ArrayList<report> reports, report r) {
-        if(reports.size() == 0) {
-            reports.add(r);
-            return;
+	/**
+	 * @author abard
+	 * @param countersNeeded
+	 * @return an Integer of the minimun number of counters needed (highest num in list)
+	 */
+	public static int findMax(ArrayDeque<Integer> countersNeeded) {
+		int maxNum = 0;
+        for(Integer counters: countersNeeded) {
+        	if(counters > maxNum) {
+        		maxNum = counters;
+        	}
         }
-        int index = 0;
-        for(report reportlist: reports) {
-            //if a start time in the list is greater than the provided start time, then add r before it
-            if(reportlist.getStartTime().compareTo(r.getStartTime()) > 0) {
-                reports.add(index, r);
-                return;
-            }
-            index++;
-        }
-        reports.add(r);
-    }
+		return maxNum;
+	}
+
     
     /**
      * @author Devin
